@@ -1,0 +1,66 @@
+version: '2'
+services:
+  mariadb:
+    image: 'docker.io/bitnami/mariadb:10.2-debian-10'
+    container_name: mariadb
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=my_user
+      - MARIADB_DATABASE=laravel
+      - MARIADB_PASSWORD=my_password
+    volumes:
+       - ./.docker_data/mariadb:/bitnami/mariadb
+  laravel:
+    tty: true
+    image: docker.io/bitnami/laravel:8-debian-10
+    container_name: laravel
+    environment:
+      - DB_HOST=mariadb
+      - DB_USERNAME=my_user
+      - DB_DATABASE=laravel
+      - DB_PASSWORD=my_password
+    depends_on:
+      - mariadb
+    ports:
+      - 3000:3000
+    volumes:
+      - .bbqing:/app
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_HOST=mariadb
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - 8080:80
+  mongo-admin:
+    image: mongo-express
+    container_name: mongo-admin
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+    links:
+      - mongo
+  mongo:
+    image: mongo
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017"
+    volumes:
+      - .docker_data/mongo:/data/db
+  node:
+    image: node:14
+    container_name: node
+    ports:
+      - "3001:3000"
+    volumes:
+      - .doubleapi:/usr/src/app
+    command: node /usr/src/app/app.js
