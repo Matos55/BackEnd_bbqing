@@ -66,4 +66,8 @@ class User extends Authenticatable
             return true;
         }
     }
+
+    public function roullotes() {
+        return $this->hasMany(Roullote::class);
+    }
 }
