@@ -20,6 +20,7 @@ class Roullote extends Model
         'phone',
     ];
 
+    // Each Roullote has one user
     public function user(){
         return $this->belongsTo(User::class, 'roullotes_id', 'id'); // Matos: the roullotes_id from User::class belongsTo id from Roullote::class
     }

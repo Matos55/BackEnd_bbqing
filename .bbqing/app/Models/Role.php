@@ -13,7 +13,7 @@ class Role extends Model
 
     protected $guarded = [];
 
-    // Each Role has abilities
+    // Each Role has many abilities
     public function abilities() {
         return $this->belongsToMany(Ability::class)->withTimestamps();
     }

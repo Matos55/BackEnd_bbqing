@@ -18,3 +18,8 @@ mongoAdmin - http://localhost:8081/
 laravelApp - http://localhost:3000/
 
 nodeApp - http://localhost:3001/
+
+
+# Matos
+
+Náo esquecer do php artisan storage:link

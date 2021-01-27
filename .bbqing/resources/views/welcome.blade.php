@@ -49,7 +49,7 @@
             @can('edit_roullotes')
                 <div>
                     <li>
-                        <a href="#">Edit Roullotes</a>
+                        <a href="{{ url('/roullotes') }}">Edit Roullotes</a>
                     </li>
                 </div>
             @endcan
