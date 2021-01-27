@@ -4,7 +4,9 @@ const express = require('express');
 
 // import paths
 const bbq = require('./routes/api/bbq.js');
+const routeError = require('./routes/api/route_error.js');
 require('./database/mongoose.js');
+
 
 // fire express
 var app = express();
@@ -18,7 +20,7 @@ app.use(express.urlencoded({ extended: false })); // must obey the QueryString e
 
 // Routes started with '/bbq' apply 'bbq' settings|path|files
 app.use("/bbq", bbq);
-
+app.use("/*", routeError);
 
 // listen to port
 const port = process.env.PORT || 4000;
