@@ -5,17 +5,17 @@ const Schema = mongoose.Schema;
 const product_bqq_Schema = new Schema({
     id: {
         type: Number,
-        required: true,
+        required: [true, 'Product ID number required'],
         trim: true
     },
     name: {
         type: String,
-        required: true,
+        required: [true, 'Product name required'],
         trim: true
     },
     price: {
         type: Number,
-        required: true,
+        required: [true, 'Product Price number required'],
         trim: true
     },
     // img: {
