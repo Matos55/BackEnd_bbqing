@@ -22,7 +22,7 @@ module.exports.bbq_store = async (req, res, next) => {
    return res.status(409).send(`Error: Another Product with the 'ID' ${req.body.id} already exists!`)
   }
 
-  const product_bbq = await new Model_bbq({
+  const product_bbq = new Model_bbq({
     id: req.body.id,
     name: req.body.name,
     price: req.body.price,
@@ -58,44 +58,31 @@ module.exports.bbq_index = (req, res) => {
 };
 
 // SHOW by id                                                              
-module.exports.bbq_show = async (req, res) => {
+module.exports.bbq_show = (req, res) => {
 
-  const find = await Model_bbq.exists({id: req.params.id});
+  Model_bbq.exists({id: req.params.id}, function(err, product) {
+    if (err) return res.status(500).send("There was a problem while searching for product.");
+    if (!product) return res.status(404).send(`No product found with ID: '${req.params.id}'.`);
 
-  if(find){
     Model_bbq.find({id: req.params.id}).then((bbq) => {
-      res.json(bbq);
+      res.status(200).json(bbq);
     });
-  } else {
-    res.status(400).send(`No product with the 'ID' of ${req.params.id}`);
-  }
-
-  /* OLD WAY
-
-  Model_bbq.find({id: req.params.id}).then((bbq) => {
-    console.log(find);
-    res.json(bbq)
-  }).catch((e) => {
-    console.log(e);
-    res.status(400).send("Something went wrong, please make sure to give a valid 'ID'!")
-    // res.status(400).json(`No product with the id of ${req.params.id}`)
   });
-  */
+
 };
 
 // UPDATE (put)
-module.exports.bbq_update = async (req, res) => {
+module.exports.bbq_update = (req, res) => {
   
-  const find = await Model_bbq.exists({id: req.params.id});
+  Model_bbq.exists({id: parseInt(req.params.id)}, function(err, product) {
+    if (err) return res.status(500).send("There was a problem finding/updting the product.");
+    if (!product) return res.status(404).send(`No product found with ID: '${req.params.id}'.`);
 
-  if(find){
     Model_bbq.findOneAndUpdate({id: req.params.id}, {$set: req.body}, {new: true}).then((bbq) => {
-      res.json(bbq)
+      res.status(200).json(bbq);
     });
-  } else {
-    res.status(500).send("Something went wrong! Did you pass the correct 'ID'?");
-  }
-
+  });
+  
   /* NOTES
   find in the DB the first data that matches the criteria: {id: req.params.id}. Then, change the KEY name into VALUE from 'req.body.name'. 
   Note: {new: true} is for the function to return with the updated values and not the original before updating. 
@@ -103,31 +90,18 @@ module.exports.bbq_update = async (req, res) => {
   {$set:{name: req.body.name}} for individual items
   */
 
-  /* OLD WAY
-  Model_bbq.findOneAndUpdate({id: req.params.id}, {$set: req.body}, {new: true}).then((bbq) => {
-    res.json(bbq)
-  }).catch((e) => {
-    console.log(e);
-    res.status(500).send("Something went wrong! Did you pass the correct info?")
-  });
-  */
-
 };
 
 // DELETE
-module.exports.bbq_delete = async (req, res) => {
+module.exports.bbq_delete = (req, res) => {
 
-  const find = await Model_bbq.exists({id: parseInt(req.params.id)});
+  Model_bbq.exists({id: parseInt(req.params.id)}, function(err, product) {
+    if (err) return res.status(500).send("There was a problem finding/deleting the product.");
+    if (!product) return res.status(404).send(`No product found with ID: '${req.params.id}'.`);
 
-  if(!find) {
-    return res.status(404).send(`Error: The Product with the 'ID' ${req.params.id} does not exist!`)
-   }
-  
-  Model_bbq.find({id: req.params.id}).deleteOne().then((bbq) => {
-    res.status(204).send();
-  }).catch((e) => {
-    console.log(e);
-    res.status(404).send("Can't delete! Please, doublecheck your URL")
+    Model_bbq.find({id: req.params.id}).deleteOne().then((bbq) => {
+      res.status(204).json(bbq);
+    });
   });
 
 };
