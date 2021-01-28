@@ -79,7 +79,7 @@ module.exports.bbq_update = (req, res) => {
     if (!product) return res.status(404).send(`No product found with ID: '${req.params.id}'.`);
 
     Model_bbq.findOneAndUpdate({id: req.params.id}, {$set: req.body}, {new: true}).then((bbq) => {
-      res.status(200).json(bbq);
+      res.status(201).json(bbq);
     });
   });
   

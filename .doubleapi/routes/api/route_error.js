@@ -9,10 +9,7 @@ const controller_bbq = require("../../controllers/route_error.js");
 const router = express.Router();
 
 // ROUTES
-
 router.get("/*", controller_bbq.route_error);
-
-
 
 // exports
 module.exports = router;
