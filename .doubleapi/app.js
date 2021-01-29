@@ -17,8 +17,10 @@ var app = express();
 const swaggerOptions = {
 
     swaggerDefinition: {
+        openapi: '3.0.0',
         info: {
             title: 'Product API',
+            version: '1.0.0',
             description: "Product BBQ API Information",
             contact: {
                 name: "The Amazing Matos"
