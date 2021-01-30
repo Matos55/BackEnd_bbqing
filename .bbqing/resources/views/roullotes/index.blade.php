@@ -48,7 +48,11 @@
                 <td>{{ $value->foto?? 'não há pics'}}</td>
                 <td style="text-align: center; min-width:175px;">
                     <a class="btn btn-small btn-success" href="{{ Route('roullotes.show', $value->id) }}"><i class="fa fa-eye"></i></a>
-                    <a class="btn btn-small btn-info" href="{{ Route('roullotes.edit', $value->id) }}"><i class="fa fa-edit"></i></a>
+                    {{-- Matos Test --}}
+                    {{-- @can('roullotes.update', Auth::user()) --}}
+                        <a class="btn btn-small btn-info" href="{{ Route('roullotes.edit', $value->id) }}"><i class="fa fa-edit"></i></a>
+                    {{-- @endcan --}}
+                    {{-- Matos End --}}
                     <form style="display:inline" method="Post" action="{{ route('roullotes.destroy', $value->id) }}">
                         @csrf @method('DELETE')
                         <button type="submit" class="btn btn-small btn-danger"><i class="fa fa-times"></i></button>

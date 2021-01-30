@@ -85,5 +85,10 @@
             @yield('content')
         </main>
     </div>
+
+    <div class="container">
+        <iframe src="http://localhost:5000/" width="100%" height="1000">ERROR LOADING</iframe>
+    </div>
+
 </body>
 </html>

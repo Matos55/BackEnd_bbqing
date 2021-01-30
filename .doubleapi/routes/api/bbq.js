@@ -90,12 +90,6 @@ router.post("/", controller_bbq.bbq_store);
  */
 router.get("/:id", controller_bbq.bbq_show);
 
-
-
-
-
-
-
 // DELETE
 /**
  * @swagger

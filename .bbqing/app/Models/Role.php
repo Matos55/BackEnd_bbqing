@@ -24,7 +24,7 @@ class Role extends Model
 
         if (is_string($ability)) {
             // Ability::whereName($ability)->firstOrCreate(['name' => $ability]);  // Matos: if we want to create a new Ability
-            Ability::whereName($ability)->firstOrFail(); // either gives the correct role or throw error
+            Ability::whereName($ability)->firstOrFail(); // either gives the correct role or throw error. Search inside colunm "name" for $ability
         }
 
         $this->abilities()->syncWithoutDetaching($ability);

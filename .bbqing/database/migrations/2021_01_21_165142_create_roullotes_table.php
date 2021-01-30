@@ -19,7 +19,9 @@ class CreateRoullotesTable extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('foto')->nullable();	
+            $table->foreignId('user_id')->nullable()->references('id')->on('users')->onDelete('cascade');	
             $table->timestamps();
+           
         });
 
         

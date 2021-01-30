@@ -80,6 +80,11 @@ class RoulloteController extends Controller
      */
     public function edit(Roullote $roullote)
     {
+        // if(Auth::user()->can('edit_roullotes', $roullote)) {
+        //     return view('roullotes.edit', ['roullote' => $roullote]);
+        // }
+        // return redirect()->route('roullotes.index');
+       
         return view('roullotes.edit', ['roullote' => $roullote]);
     }
 

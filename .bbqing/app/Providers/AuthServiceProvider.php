@@ -41,7 +41,22 @@ class AuthServiceProvider extends ServiceProvider
          }
         });
 
+        Gate::resource('roullotes', 'App\Policies\RoullotePolicy');
 
+
+        /*
+        // MATOS EXAMPLES:
+
+        Gate::define('create-post', function ($user) {
+            return $user->id == 1;
+        });
+
+        In the above example, we’re allowing only the user id 1 to have the authority to create a post. Other than that, nobody will have the authorization to add a new post to your website.
+
+        Gate::allows('create-post');
+
+        That will return a boolean value denoting if the user is allowed or rejected. Simple, right? Do you see that $user variable in the closure’s first param? It’s passed to all the defined gates and policies by default. It’s the currently logged-in user.
         //
+        */
     }
 }

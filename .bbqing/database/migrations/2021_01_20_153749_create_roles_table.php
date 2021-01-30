@@ -15,7 +15,7 @@ class CreateRolesTable extends Migration
     {
         // Roles
         Schema::create('roles', function (Blueprint $table) {
-            $table->bigIncrements('id');  // Matos:  Laravel 7+ way to write: $table->id();  ?
+            $table->bigIncrements('id');  // Matos:  Laravel 7+ way to write: $table->id();  
             $table->string('name'); // Matos: name of the role
             $table->string('label')->nullable(); // Matos: Custom Role label, sometimes is easier to understand this way
             $table->timestamps();
@@ -32,7 +32,7 @@ class CreateRolesTable extends Migration
         // Many-To-Many Auxiliar Pivot-Table ability_role.  ((single and alphabetic order))
         Schema::create('ability_role', function (Blueprint $table) {
             $table->primary(['role_id', 'ability_id']); // Set Primary Unique Keys. Matos: Another ex: $table->primary('role_id')->unique(); + $table->primary('ability_id')->unique();
-            $table->unsignedBigInteger('role_id'); // foreign key
+            $table->unsignedBigInteger('role_id'); // foreign key (another way of writing)
             $table->unsignedBigInteger('ability_id'); // foreign key
             $table->timestamps();
 
