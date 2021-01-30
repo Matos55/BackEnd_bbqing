@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Roullote;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use app\Models\User;
+use App\Policies\RoullotePolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+
+        Roullote::class => RoullotePolicy::class,
+        
     ];
 
     /**

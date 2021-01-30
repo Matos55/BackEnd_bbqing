@@ -61,6 +61,8 @@ class RoullotePolicy
         // }
 
         // return false;
+
+        return $user->id === $roullote->user_id;
     }
 
     /**

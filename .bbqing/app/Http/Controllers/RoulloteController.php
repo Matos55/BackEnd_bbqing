@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Roullote;
+use App\Models\User;
+use App\Models\Ability;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Exception;
+
 
 class RoulloteController extends Controller
 {   
@@ -56,6 +61,7 @@ class RoulloteController extends Controller
         $roullote->address = $request->get('address');
         $roullote->phone = $request->get('phone');
         $roullote->foto = $this->saveFoto($request, uniqid('foto_')); // Matos: averiguar a foto
+        $roullote->user_id = Auth::id();
         $roullote->save();
 
         return redirect()->route('roullotes.index')->with('message', 'Roullote inserido com sucesso');    
@@ -84,6 +90,8 @@ class RoulloteController extends Controller
         //     return view('roullotes.edit', ['roullote' => $roullote]);
         // }
         // return redirect()->route('roullotes.index');
+
+        $this->authorize('update', $roullote);
        
         return view('roullotes.edit', ['roullote' => $roullote]);
     }
