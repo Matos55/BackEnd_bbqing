@@ -30,7 +30,7 @@ class RoullotePolicy
      */
     public function view(User $user, Roullote $roullote)
     {
-        //
+        // return TRUE;
     }
 
     /**
@@ -41,7 +41,7 @@ class RoullotePolicy
      */
     public function create(User $user)
     {
-        //
+        // return $user->id > 0;
     }
 
     /**
@@ -74,7 +74,7 @@ class RoullotePolicy
      */
     public function delete(User $user, Roullote $roullote)
     {
-        //
+        // return $user->id === $roullote->user_id;
     }
 
     /**

@@ -19,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
 
         Roullote::class => RoullotePolicy::class,
-        
+
     ];
 
     /**
@@ -46,7 +46,7 @@ class AuthServiceProvider extends ServiceProvider
          }
         });
 
-        Gate::resource('roullotes', 'App\Policies\RoullotePolicy');
+        // Gate::resource('roullotes', 'App\Policies\RoullotePolicy');
 
 
         /*
