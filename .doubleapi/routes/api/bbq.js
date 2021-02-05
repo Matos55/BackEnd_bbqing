@@ -60,7 +60,7 @@ router.get("/", controller_bbq.bbq_index);
  *                  schema: 
  *                      $ref: '#/components/schemas/Product_bbq'
  *      responses:
- *          '200': 
+ *          '201': 
  *              description: A product was found.
  *          '400':
  *              description: Please double check if the Product ID is correctly filled. 

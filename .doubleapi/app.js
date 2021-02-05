@@ -6,6 +6,7 @@ const swaggerUi = require('swagger-ui-express');
 
 // import paths
 const bbq = require('./routes/api/bbq.js');
+const meeting = require('./routes/api/meeting.js');
 const routeError = require('./routes/api/route_error.js');
 require('./database/mongoose.js');
 
@@ -35,7 +36,8 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 /*
 // Middleware: methods/functions/operations that are called BETWEEN processing the Request and sending the Response in your application method.
-// Body Parser Middleware ==> used to "read/transport" the BODY request, normally, from POST's requests.
+// Body Parser Middleware ==> used to "read/transport" the BODY request, normally, from POST's requests. New way (below explained):
+//
 // express.json() is a method inbuilt in express to recognize the incoming Request Object as a JSON Object.
 // express.urlencoded() is a method inbuilt in express to recognize the incoming Request Object as strings or arrays
 */
@@ -45,6 +47,7 @@ app.use(express.urlencoded({ extended: false })); // must obey the QueryString e
 
 // Routes 
 app.use("/bbq", bbq);
+app.use("/api/meeting", meeting);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/*", routeError);
 

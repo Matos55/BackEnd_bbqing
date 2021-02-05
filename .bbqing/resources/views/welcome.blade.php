@@ -36,6 +36,30 @@
                 </div>
             @endif
 
+
+            {{-- Matos MEETINGS TEST --}}
+
+            <form action="http://localhost:4000/bbq/" method="POST">
+                <div>
+                  <label for="say">name</label>
+                  <input name="name" id="say" value="Put your name">
+                </div>
+                <div>
+                  <label for="to">id</label>
+                  <input name="id" id="to" value="Put your id">
+                </div>
+                <div>
+                    <label for="to">price</label>
+                    <input name="price" id="to" value="Put your price">
+                </div>
+                <div>
+                  <button>Send my greetings</button>
+                </div>
+              </form>
+
+            {{-- MATOS API MEETINGS --}}
+
+            
             {{-- Matos: Ask laravel if the user is signed in (authenticated) --}}
             <h1>
                 @auth
