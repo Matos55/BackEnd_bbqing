@@ -12,7 +12,7 @@ const Model_meeting = require("../models/model_meeting.js");
 // CREATE (store)
 module.exports.meeting_store = async (req, res, next) => {
 
- // Invoke dataService to not allow bookings during weekends or after labor hour.
+ /* Invoke dataService to not allow bookings during weekends or after labor hour. */
  let checkDayStart = (dataService()).checkDayStart(req);
  let checkDayEnd = (dataService()).checkDayEnd(req);
  let checkHourStart = (dataService()).checkHourStart(req);
@@ -27,7 +27,7 @@ module.exports.meeting_store = async (req, res, next) => {
  ){
    return res.status(403).send(`Please book during the week between: [9h ; 17h], make sure the Meeting_TimeStart is lower than Meeting_TimeEnd`);
  }
-  // Invoke dataService to not allow bookings during weekends or after labor hour. END
+  /* Invoke dataService to not allow bookings during weekends or after labor hour. END */
 
   // check if user ID already has bookings
   const find = await Model_meeting.exists({id: parseInt(req.body.id)});
@@ -36,6 +36,23 @@ module.exports.meeting_store = async (req, res, next) => {
    return res.status(409).send(`Error: Another Meeting with the User 'ID' ${req.body.id} already exists!`)
   }
 
+  /* Check if there are meeting's time incompatibilities|conflicts. */
+  let conflictingMeetings = await Model_meeting.find()
+    .where('meet_start').lte(req.body.meet_end)
+    .where('meet_end').gte(req.body.meet_start)
+    // .where('name').equals(req.body.name)
+    .exec();
+
+  // console.log(conflictingMeetings);
+  // console.log(conflictingMeetings.length);
+
+  if(conflictingMeetings.length > 0) {
+    return res.status(403).send('Meetings time conflict, please doublechek the proper booking time');
+  }
+   /* Check if there are meeting's time incompatibilities|conflicts. END */
+
+
+  // Proceed to create and store a new meeting
   const product_meeting = new Model_meeting({
     id: req.body.id,
     name: req.body.name,
@@ -88,7 +105,7 @@ module.exports.meeting_update = (req, res) => {
     if (err) return res.status(500).send("There was a problem finding/updting the meeting.");
     if (!product) return res.status(404).send(`No meeting found with User ID: '${req.params.id}'.`);
 
-  // Invoke dataService to not allow bookings during weekends or after labor hour.
+  /* Invoke dataService to not allow bookings during weekends or after labor hour. */
   let checkDayStart = (dataService()).checkDayStart(req);
   let checkDayEnd = (dataService()).checkDayEnd(req);
   let checkHourStart = (dataService()).checkHourStart(req);
@@ -103,7 +120,7 @@ module.exports.meeting_update = (req, res) => {
   ){
     return res.status(403).send(`Please book during the week between: [9h ; 17h], make sure the Meeting_TimeStart is lower than Meeting_TimeEnd`);
   }
-   // Invoke dataService to not allow bookings during weekends or after labor hour. END
+   /* Invoke dataService to not allow bookings during weekends or after labor hour. END */
 
     Model_meeting.findOneAndUpdate({id: req.params.id}, {$set: req.body}, {new: true}).then((meeting) => {
       res.status(201).json(meeting);
@@ -139,8 +156,9 @@ module.exports.meeting_error = (req, res) => {
 };
 
 
-
-// HELPER FUNCTIONS
+/* ----------------- */
+// HELPER FUNCTIONS //
+/* ----------------- */
 
 const dataService = () => {
 
