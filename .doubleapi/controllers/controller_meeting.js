@@ -12,19 +12,21 @@ const Model_meeting = require("../models/model_meeting.js");
 // CREATE (store)
 module.exports.meeting_store = async (req, res, next) => {
 
-  // Invoke dataService to not allow bookings during weekends or after labor hour.
-  let checkDay = (dataService()).checkDay(req);
-  let checkHourStart = (dataService()).checkHourStart(req);
-  let checkHourEnd = (dataService()).checkHourEnd(req);
+ // Invoke dataService to not allow bookings during weekends or after labor hour.
+ let checkDayStart = (dataService()).checkDayStart(req);
+ let checkDayEnd = (dataService()).checkDayEnd(req);
+ let checkHourStart = (dataService()).checkHourStart(req);
+ let checkHourEnd = (dataService()).checkHourEnd(req);
 
-  if(
-    (checkDay === 'Sunday' || checkDay === 'Saturday') ||
-    (checkHourStart > 17 || checkHourStart < 9) ||
-    (checkHourEnd > 17 || checkHourEnd < 9) || 
-    (checkHourEnd < checkHourStart)
-  ){
-    return res.status(403).send(`Please book during the week between: [9h ; 17h], make sure the Meeting_TimeStart is lower than Meeting_TimeEnd`);
-  }
+ if(
+   (checkDayStart === 'Sunday' || checkDayStart === 'Saturday') ||
+   (checkDayEnd === 'Sunday' || checkDayEnd === 'Saturday') ||
+   (checkHourStart > 17 || checkHourStart < 9) ||
+   (checkHourEnd > 17 || checkHourEnd < 9) || 
+   (checkHourEnd < checkHourStart)
+ ){
+   return res.status(403).send(`Please book during the week between: [9h ; 17h], make sure the Meeting_TimeStart is lower than Meeting_TimeEnd`);
+ }
   // Invoke dataService to not allow bookings during weekends or after labor hour. END
 
   // check if user ID already has bookings
@@ -87,12 +89,14 @@ module.exports.meeting_update = (req, res) => {
     if (!product) return res.status(404).send(`No meeting found with User ID: '${req.params.id}'.`);
 
   // Invoke dataService to not allow bookings during weekends or after labor hour.
-  let checkDay = (dataService()).checkDay(req);
+  let checkDayStart = (dataService()).checkDayStart(req);
+  let checkDayEnd = (dataService()).checkDayEnd(req);
   let checkHourStart = (dataService()).checkHourStart(req);
   let checkHourEnd = (dataService()).checkHourEnd(req);
 
   if(
-    (checkDay === 'Sunday' || checkDay === 'Saturday') ||
+    (checkDayStart === 'Sunday' || checkDayStart === 'Saturday') ||
+    (checkDayEnd === 'Sunday' || checkDayEnd === 'Saturday') ||
     (checkHourStart > 17 || checkHourStart < 9) ||
     (checkHourEnd > 17 || checkHourEnd < 9) || 
     (checkHourEnd < checkHourStart)
@@ -140,9 +144,18 @@ module.exports.meeting_error = (req, res) => {
 
 const dataService = () => {
 
-  let checkDay = function(req) {
+  let checkDayStart = function(req) {
     // Note: the time from the request is in "timestamp" ==> '1829187239'. We need to put it inside 'new Date()' to convert it.
     var day = new Date(req.body.meet_start);
+    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var result = days[day.getDay()];
+    console.log(result);
+    return result;
+  };
+
+  let checkDayEnd = function(req) {
+    // Note: the time from the request is in "timestamp" ==> '1829187239'. We need to put it inside 'new Date()' to convert it.
+    var day = new Date(req.body.meet_end);
     var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     var result = days[day.getDay()];
     console.log(result);
@@ -167,7 +180,8 @@ const dataService = () => {
 
 
   return {
-    checkDay: checkDay,
+    checkDayStart: checkDayStart,
+    checkDayEnd: checkDayEnd,
     checkHourStart: checkHourStart,
     checkHourEnd: checkHourEnd
   }
