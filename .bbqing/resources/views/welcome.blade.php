@@ -39,21 +39,29 @@
 
             {{-- Matos MEETINGS TEST --}}
 
-            <form action="http://localhost:4000/bbq/" method="POST">
+            <form action="http://localhost:4000/api/meeting/" method="POST">
+                <div>
+                    <label for="to">id</label>
+                    <input name="id" id="to" placeholder="Put your id" required>
+                </div>
                 <div>
                   <label for="say">name</label>
-                  <input name="name" id="say" value="Put your name">
+                  <input name="name" id="say" placeholder="Put your name" required> 
                 </div>
                 <div>
-                  <label for="to">id</label>
-                  <input name="id" id="to" value="Put your id">
+                    <label for="contact">contact</label>
+                    <input name="contact" id="contact" placeholder="Put your contct" required>
                 </div>
                 <div>
-                    <label for="to">price</label>
-                    <input name="price" id="to" value="Put your price">
+                    <label for="meet_start">meet_start</label>
+                    <input name="meet_start" id="meet_start" placeholder="datetime-local" type="datetime-local" required>
                 </div>
                 <div>
-                  <button>Send my greetings</button>
+                    <label for="meet_end">meet_end</label>
+                    <input name="meet_end" id="meet_end" placeholder="datetime-local" type="datetime-local" required>
+                </div>
+                <div>
+                  <button>Send my meeting schedule</button>
                 </div>
               </form>
 

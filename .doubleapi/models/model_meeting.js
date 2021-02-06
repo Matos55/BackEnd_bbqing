@@ -7,6 +7,7 @@ const meeting_Schema = new Schema({
         type: Number,
         required: [true, 'User ID number required'],
         trim: true,
+        // unique: true,
         min: 1
     },
     name: {
@@ -19,6 +20,7 @@ const meeting_Schema = new Schema({
         type: Number,
         required: [true, 'Contact number required'],
         trim: true,
+        // unique: true,
         min: 1
     },
     date_bookat: {
@@ -28,11 +30,13 @@ const meeting_Schema = new Schema({
     },
     meet_start: {
         type: Date,
-        required: [true, 'Meeting Date_start required'],
+        required: [true, 'Meeting Date_start required']
+        // unique: true
     },
     meet_end: {
         type: Date,
         required: [true, 'Meeting Date_end  required']
+        // unique: true
     }
 });
 
