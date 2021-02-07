@@ -66,7 +66,7 @@ module.exports.meeting_store = async (req, res, next) => {
     if (err) {
       return next(res.status(400).send(err.message));
     } else {
-      res.status(201).send("Meeting created successfully!");
+      res.status(201).redirect('http://localhost:4000/api/meeting/');
     }
   });
 
@@ -76,7 +76,7 @@ module.exports.meeting_store = async (req, res, next) => {
 module.exports.meeting_index = (req, res) => {
   
   Model_meeting.find({}).then((meeting) => {
-    res.json(meeting)
+    res.render('meeting', {meeting: meeting})
   }).catch((e) => {
     console.log(e);
     res.status(400).send(e.message)
@@ -178,7 +178,7 @@ const dataService = () => {
     var day = new Date(req.body.meet_start);
     var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     var result = days[day.getDay()];
-    console.log(result);
+    // console.log(result);
     return result;
   };
 

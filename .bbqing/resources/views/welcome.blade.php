@@ -38,7 +38,8 @@
 
 
             {{-- Matos MEETINGS TEST --}}
-
+            
+            <h1>schedule a meeting for re/stocking</h1>
             <form action="http://localhost:4000/api/meeting/" method="POST">
                 <div>
                     <label for="to">id</label>
