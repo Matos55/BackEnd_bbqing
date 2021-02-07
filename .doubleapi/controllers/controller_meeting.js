@@ -101,7 +101,7 @@ module.exports.meeting_show = (req, res) => {
 // UPDATE (put)
 module.exports.meeting_update = (req, res) => {
   
-  Model_meeting.exists({id: parseInt(req.params.id)}, function(err, product) {
+  Model_meeting.exists({id: parseInt(req.params.id)}, async function(err, product) {
     if (err) return res.status(500).send("There was a problem finding/updting the meeting.");
     if (!product) return res.status(404).send(`No meeting found with User ID: '${req.params.id}'.`);
 
@@ -121,6 +121,17 @@ module.exports.meeting_update = (req, res) => {
     return res.status(403).send(`Please book during the week between: [9h ; 17h], make sure the Meeting_TimeStart is lower than Meeting_TimeEnd`);
   }
    /* Invoke dataService to not allow bookings during weekends or after labor hour. END */
+
+   /* Check if there are meeting's time incompatibilities|conflicts. */
+  let conflictingMeetings = await Model_meeting.find()
+  .where('meet_start').lte(req.body.meet_end)
+  .where('meet_end').gte(req.body.meet_start)
+  .exec();
+
+  if(conflictingMeetings.length > 0) {
+    return res.status(403).send('Meetings time conflict, please doublechek the proper booking time');
+  }
+ /* Check if there are meeting's time incompatibilities|conflicts. END */
 
     Model_meeting.findOneAndUpdate({id: req.params.id}, {$set: req.body}, {new: true}).then((meeting) => {
       res.status(201).json(meeting);
