@@ -1,0 +1,3 @@
+{"_id":{"$oid":"601ae936fd4dcb2320372563"},"id":1,"name":"Queijo da Serra","price":3.99,"date":{"$date":"2021-01-22T00:37:08.000Z"},"__v":0}
+{"_id":{"$oid":"601ae948fd4dcb2320372564"},"id":2,"name":"Espetadinhos misos de frango","price":3.99,"date":{"$date":"2021-01-22T00:37:08.000Z"},"__v":0}
+{"_id":{"$oid":"601ae952fd4dcb2320372565"},"id":3,"name":"Espetadinhos misos de coração de alcatra","price":3.99,"date":{"$date":"2021-01-22T00:37:08.000Z"},"__v":0}

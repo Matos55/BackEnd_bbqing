@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meetings Schedule Table</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
+  
+    <link rel="stylesheet" href="/assets/styles.css" type="text/css">
+</head>
+<body>
+    <h1>Meetings Schedule Table</h1>
+      <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Contact</td>
+                <td>Booked At</td>
+                <td>Meeting Starting Time</td>
+                <td>Meeting Ending Time</td>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0; i < meeting.length; i++){ %>
+                <tr>
+                    <td><%= meeting[i].name %></td>
+                    <td><%= meeting[i].contact %></td>
+                    <td><%= meeting[i].date_bookat %></td>
+                    <td><%= meeting[i].meet_start%></td>
+                    <td><%= meeting[i].meet_end %></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+  
+    <h2>
+        <a href="http://localhost:8000/">Go Back to My APP (laravel)</a>
+    </h2>
+    
+</body>
+</html>
