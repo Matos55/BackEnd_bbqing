@@ -25,7 +25,7 @@ const swaggerOptions = {
             contact: {
                 name: "The Amazing Matos"
             },
-            servers: ["http://localhost:4000"]
+            servers: ["http://localhost:3001"]
         }
     },
 
@@ -61,7 +61,7 @@ app.use("/api/meeting", meeting);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // app.use("/*", routeError);
 
-/* Matos trying JWT */
+/* Matos testing JWT */
 app.get('/api/matos', verifyToken, (req, res) =>{
 
     jwt.verify(req.token, 'secretkey', (err, authData) =>{
@@ -69,10 +69,7 @@ app.get('/api/matos', verifyToken, (req, res) =>{
             res.sendStatus(403);
         } else {
 
-            res.json({
-                message: 'Matos Post created...',
-                authData
-            });
+            res.send('Matos: Success')
         }
     });
 
@@ -120,7 +117,7 @@ function verifyToken(req, res, next) {
 /* Matos texting JWT END */
 
 // listen to port
-const port = process.env.PORT || 4000;
+const port = 3001;
 app.listen(port, () => {
     console.log(`You are listening to port ${port}`);
 });

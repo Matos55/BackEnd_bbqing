@@ -66,7 +66,7 @@ module.exports.meeting_store = async (req, res, next) => {
     if (err) {
       return next(res.status(400).send(err.message));
     } else {
-      res.status(201).redirect('http://localhost:4000/api/meeting/');
+      res.status(201).redirect('http://localhost:3001/api/meeting/');
     }
   });
 

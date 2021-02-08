@@ -36,38 +36,6 @@
                 </div>
             @endif
 
-
-            {{-- Matos MEETINGS TEST --}}
-            
-            <h1>schedule a meeting for re/stocking</h1>
-            <form action="http://localhost:4000/api/meeting/" method="POST">
-                <div>
-                    <label for="to">id</label>
-                    <input name="id" id="to" placeholder="Put your id" required>
-                </div>
-                <div>
-                  <label for="say">name</label>
-                  <input name="name" id="say" placeholder="Put your name" required> 
-                </div>
-                <div>
-                    <label for="contact">contact</label>
-                    <input name="contact" id="contact" placeholder="Put your contct" required>
-                </div>
-                <div>
-                    <label for="meet_start">meet_start</label>
-                    <input name="meet_start" id="meet_start" placeholder="datetime-local" type="datetime-local" required>
-                </div>
-                <div>
-                    <label for="meet_end">meet_end</label>
-                    <input name="meet_end" id="meet_end" placeholder="datetime-local" type="datetime-local" required>
-                </div>
-                <div>
-                  <button>Send my meeting schedule</button>
-                </div>
-              </form>
-
-            {{-- MATOS API MEETINGS --}}
-
             
             {{-- Matos: Ask laravel if the user is signed in (authenticated) --}}
             <h1>
@@ -90,7 +58,7 @@
             @can('')
                 <div>
                     <li>
-                        <a href="#">Edit Admin</a>
+                        <a href="http://localhost:8081/db/admin/model_bbqs">Manage the products bbq</a>
                     </li>
                 </div>
             @endcan

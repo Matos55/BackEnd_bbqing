@@ -39,6 +39,15 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('roullotes.index') }}">{{ __('Roullotes') }}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('bbq') }}">{{ __('Products_BBQ') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('chat') }}">{{ __('Chat 4 brainstorm') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('meeting') }}">{{ __('Book a Meeting 4 stock') }}</a>
+                            </li>
                         </ul>
                     </ul>
 
@@ -84,10 +93,6 @@
         <main class="py-4">
             @yield('content')
         </main>
-    </div>
-
-    <div class="container">
-        <iframe src="http://localhost:5000/" width="100%" height="1000">ERROR LOADING</iframe>
     </div>
 
 </body>
