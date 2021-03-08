@@ -61,7 +61,7 @@ app.use("/api/meeting", meeting);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // app.use("/*", routeError);
 
-/* Matos testing JWT */
+/* Matos JWT */
 app.get('/api/matos', verifyToken, (req, res) =>{
 
     jwt.verify(req.token, 'secretkey', (err, authData) =>{
