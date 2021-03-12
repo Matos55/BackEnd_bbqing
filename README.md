@@ -1,7 +1,7 @@
 
 
 
-# Matos: Laravel + Node + MySql + MariaDB training
+# Matos: Laravel + Node + MySql|MariaDB + Mongo training
 Laravel Instructions (.bbqing): 
 1) Git clone
 2) composer install
@@ -36,6 +36,18 @@ nodeApp - http://localhost:3001/  ((check postman files, for both Node API, insi
 apidocs with token - http://localhost:3001/api-docs/#/
 
 Socket.io - http://localhost:5000/
+
+# Objectives:
+
+Laravel8+ : Explore the Basics + Routes + CRUD of 'Roulottes' with MariaDB + consume|ask API from Node + Authorization vs Authentication + Middleware + Roles|Abilities|Users + Migrations + Policies vs Gates.
+
+Node.js & Express: 2 CRUD API with Mongo|Mongoose + ejs template + HTTP Response Status + DATES LOGIC to book Meetings on "week" under "labor hour".
+
+POSTMAN: to test both API ===> Barbacue Products + Book Meetings for re-stock.
+
+Node.js SWAGGER: Api documentation YAML + 'jsonwebtoken'.
+
+Socket.io: Explore sockets and instant messages + users per room. ((Iframe inside Laravel))
 
 
 
